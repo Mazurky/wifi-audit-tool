@@ -31,12 +31,13 @@ Usage: $0 [--full|-f] [--gpsd|-g] [--aircrack|-a] [--kismet|-k] [--repeater|-r] 
   --kismet,    -k   kismet
   --repeater,  -r   repeater + captive-portal
   --app,       -p   wifi_audit_tool application
+  --help,      -h   show this help message
 EOF
     exit 1
 }
 
 # — parse short and long options via getopt
-PARSED=$(getopt --options fgakrp --long full,gpsd,aircrack,kismet,repeater,app --name "$0" -- "$@")
+PARSED=$(getopt --options fgakrph --long full,gpsd,aircrack,kismet,repeater,app,help --name "$0" -- "$@")
 if [[ $? -ne 0 ]]; then
     usage
 fi
@@ -56,6 +57,8 @@ while true; do
             REPEATER=true; shift ;;
         -p|--app)
             APP=true; shift ;;
+		-h|--help)
+            usage ;;
         --)
             shift; break ;;
         *)
